@@ -194,6 +194,71 @@ body::after{right:6px}
   .c-grid{grid-template-columns:1fr}
   .menu-nav{top:57px}
 }
+
+/* ===== Новогоднее меню ===== */
+:root{--ny-red:#a3262f;--ny-red-deep:#7e1b23;--ny-green:#1f4a37}
+.ny-btn{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:999px;border:none;cursor:pointer;
+  font-family:'Manrope',sans-serif;font-weight:700;font-size:13.5px;color:#fff;white-space:nowrap;position:relative;overflow:hidden;
+  background:linear-gradient(135deg,var(--ny-red),var(--ny-red-deep));box-shadow:0 6px 18px -6px rgba(163,38,47,.65),inset 0 0 0 1.5px rgba(224,193,147,.55);
+  transition:transform .2s,box-shadow .2s;animation:nyPulse 2.6s ease-in-out infinite}
+.ny-btn svg{width:17px;height:17px;flex:none;color:#f3dcae}
+.ny-btn::after{content:'';position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.35),transparent);transform:skewX(-20deg);animation:nyShine 3.4s ease-in-out infinite}
+.ny-btn:hover{transform:translateY(-2px);box-shadow:0 10px 24px -8px rgba(163,38,47,.8),inset 0 0 0 1.5px rgba(224,193,147,.8)}
+.ny-btn:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.hero-cta .ny-btn{padding:14px 30px;font-size:14px}
+@keyframes nyPulse{0%,100%{box-shadow:0 6px 18px -6px rgba(163,38,47,.65),inset 0 0 0 1.5px rgba(224,193,147,.55),0 0 0 0 rgba(163,38,47,.35)}50%{box-shadow:0 6px 18px -6px rgba(163,38,47,.65),inset 0 0 0 1.5px rgba(224,193,147,.55),0 0 0 8px rgba(163,38,47,0)}}
+@keyframes nyShine{0%,60%{left:-60%}100%{left:130%}}
+
+.ny-overlay{position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;padding:18px;
+  background:rgba(28,24,20,.62);backdrop-filter:blur(4px);opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s}
+.ny-overlay.open{opacity:1;visibility:visible}
+.ny-close{position:absolute;top:10px;right:10px;z-index:3;width:38px;height:38px;border-radius:50%;border:none;cursor:pointer;
+  background:rgba(255,255,255,.92);color:var(--ink);font-size:22px;line-height:1;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 10px rgba(0,0,0,.18);transition:transform .2s}
+.ny-close:hover{transform:rotate(90deg)}
+
+/* приглашение */
+.ny-card{position:relative;width:100%;max-width:440px;background:var(--paper);border-radius:20px;overflow:hidden;text-align:center;
+  box-shadow:0 30px 70px -20px rgba(0,0,0,.55);transform:translateY(24px) scale(.97);transition:transform .35s cubic-bezier(.2,.8,.3,1)}
+.ny-overlay.open .ny-card,.ny-overlay.open .ny-viewer{transform:none}
+.ny-card-top{position:relative;height:190px;background:var(--ny-green) url(ny-menu-2027.jpg) center 12%/cover;}
+.ny-card-top::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(250,247,240,0) 40%,var(--paper))}
+.ny-snow{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:1}
+.ny-snow i{position:absolute;top:-10px;width:6px;height:6px;border-radius:50%;background:#fff;opacity:.85;animation:nyFall linear infinite}
+@keyframes nyFall{to{transform:translate(20px,220px)}}
+.ny-card-body{position:relative;z-index:2;padding:4px 28px 28px}
+.ny-card h3{font-size:30px;font-weight:700;line-height:1.15;margin-top:8px}
+.ny-card h3 em{color:var(--ny-red);font-style:normal}
+.ny-card p.ny-text{color:var(--ink-soft);font-style:italic;margin:12px auto 0;max-width:330px}
+.ny-price{display:inline-block;margin-top:16px;padding:8px 18px;border:1px solid var(--gold-soft);border-radius:12px;font-family:'Manrope',sans-serif}
+.ny-price small{display:block;font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--gold)}
+.ny-price b{font-size:22px}
+.ny-actions{display:flex;flex-direction:column;gap:10px;margin-top:22px}
+.ny-actions .ny-btn{justify-content:center;padding:14px 24px;font-size:14.5px}
+.ny-later{background:none;border:none;cursor:pointer;font-family:'Manrope',sans-serif;font-weight:600;font-size:13.5px;color:var(--ink-soft);padding:6px}
+.ny-later:hover{color:var(--ink)}
+
+/* просмотр меню */
+.ny-viewer{position:relative;width:100%;max-width:640px;max-height:calc(100vh - 36px);overflow:auto;background:var(--paper);border-radius:18px;
+  box-shadow:0 30px 70px -20px rgba(0,0,0,.6);transform:translateY(24px) scale(.97);transition:transform .35s cubic-bezier(.2,.8,.3,1);overscroll-behavior:contain}
+.ny-viewer img{display:block;width:100%;height:auto}
+.ny-viewer-bar{position:sticky;bottom:0;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;padding:14px 16px;
+  background:rgba(250,247,240,.96);backdrop-filter:blur(6px);border-top:1px solid var(--line)}
+.ny-viewer-bar .btn{padding:12px 22px}
+.ny-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+body.ny-lock{overflow:hidden}
+
+@media (max-width:860px){
+  .header-in .ny-btn{padding:9px 14px;font-size:12.5px;margin-left:auto}
+}
+@media (max-width:400px){
+  .header-in .ny-btn{padding:9px 12px;font-size:12px}
+  .header-in .ny-btn svg{display:none}
+  .logo b{font-size:19px}
+  .logo span{letter-spacing:.2em;white-space:nowrap}
+  .ny-card h3{font-size:26px}
+  .ny-card-top{height:150px}
+}
+@media (prefers-reduced-motion:reduce){.ny-btn,.ny-btn::after,.ny-snow i{animation:none}}
 </style>
 <!-- Yandex.Metrika counter -->
 <script type="text/javascript">
@@ -222,6 +287,7 @@ body::after{right:6px}
         <li><a href="#contacts">Контакты</a></li>
       </ul>
     </nav>
+    <button class="ny-btn" type="button" data-ny-open><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 2v20M3.3 7l17.4 10M3.3 17L20.7 7"/><path d="M9.5 3.5L12 6l2.5-2.5M9.5 20.5L12 18l2.5 2.5M3 10.2l3.4-.9-.9-3.4M21 13.8l-3.4.9.9 3.4M3 13.8l3.4.9-.9 3.4M21 10.2l-3.4-.9.9-3.4"/></svg><span><span class="ny-word">Новогоднее </span>меню</span></button>
     <a class="header-phone" href="tel:+79525002305">8 (952) 500-23-05</a>
     <button class="burger" id="burger" aria-label="Меню"><span></span><span></span><span></span></button>
   </div>
@@ -243,6 +309,7 @@ body::after{right:6px}
     <div class="ornament"><span class="line"></span><span class="gem"></span><span class="line"></span></div>
     <p class="hero-sub">Добро пожаловать! Уютный зал, домашняя кухня, банкеты и семейные торжества.</p>
     <div class="hero-cta">
+      <button class="ny-btn" type="button" data-ny-open><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 2v20M3.3 7l17.4 10M3.3 17L20.7 7"/><path d="M9.5 3.5L12 6l2.5-2.5M9.5 20.5L12 18l2.5 2.5M3 10.2l3.4-.9-.9-3.4M21 13.8l-3.4.9.9 3.4M3 13.8l3.4.9-.9 3.4M21 10.2l-3.4-.9.9-3.4"/></svg>Новогоднее меню 2027</button>
       <a class="btn btn-gold" href="#menu">Смотреть меню</a>
       <a class="btn btn-line" href="tel:+79525002305">8 (952) 500-23-05</a>
     </div>
@@ -414,6 +481,37 @@ body::after{right:6px}
   </div>
 </section>
 
+<!-- Новогоднее меню: приглашение -->
+<div class="ny-overlay" id="ny-invite" role="dialog" aria-modal="true" aria-labelledby="ny-invite-title">
+  <div class="ny-card">
+    <button class="ny-close" type="button" data-ny-close aria-label="Закрыть">&times;</button>
+    <div class="ny-card-top"><div class="ny-snow"><i style="left:6%;animation-duration:7s;animation-delay:-1s;width:5px;height:5px"></i><i style="left:18%;animation-duration:9s;animation-delay:-4s;width:4px;height:4px"></i><i style="left:29%;animation-duration:6s;animation-delay:-2s;width:6px;height:6px"></i><i style="left:41%;animation-duration:8s;animation-delay:-6s;width:3px;height:3px"></i><i style="left:53%;animation-duration:10s;animation-delay:-3s;width:5px;height:5px"></i><i style="left:64%;animation-duration:7s;animation-delay:-5s;width:4px;height:4px"></i><i style="left:76%;animation-duration:9s;animation-delay:-1s;width:6px;height:6px"></i><i style="left:88%;animation-duration:8s;animation-delay:-7s;width:4px;height:4px"></i><i style="left:95%;animation-duration:6s;animation-delay:-3s;width:3px;height:3px"></i><i style="left:12%;animation-duration:11s;animation-delay:-8s;width:3px;height:3px"></i><i style="left:47%;animation-duration:7.5s;animation-delay:-0s;width:4px;height:4px"></i><i style="left:71%;animation-duration:10.5s;animation-delay:-6s;width:3px;height:3px"></i></div></div>
+    <div class="ny-card-body">
+      <p class="caps">Кафе «Аэлита» · 2027</p>
+      <h3 id="ny-invite-title">У нас есть<br><em>новогоднее меню</em></h3>
+      <p class="ny-text">Холодные закуски, салаты и горячее на выбор — отметьте праздник с коллегами, друзьями и семьёй.</p>
+      <div class="ny-price"><small>Стоимость на гостя</small><b>3100 ₽</b></div>
+      <div class="ny-actions">
+        <button class="ny-btn" type="button" data-ny-open><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 2v20M3.3 7l17.4 10M3.3 17L20.7 7"/><path d="M9.5 3.5L12 6l2.5-2.5M9.5 20.5L12 18l2.5 2.5M3 10.2l3.4-.9-.9-3.4M21 13.8l-3.4.9.9 3.4M3 13.8l3.4.9-.9 3.4M21 10.2l-3.4-.9.9-3.4"/></svg>Посмотреть меню</button>
+        <button class="ny-later" type="button" data-ny-close>Закрыть</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Новогоднее меню: просмотр -->
+<div class="ny-overlay" id="ny-menu" role="dialog" aria-modal="true" aria-label="Новогоднее меню 2027">
+  <div class="ny-viewer">
+    <button class="ny-close" type="button" data-ny-close aria-label="Закрыть">&times;</button>
+    <img src="ny-menu-2027.jpg" width="904" height="1280" loading="lazy" alt="Новогоднее меню 2027 кафе «Аэлита»">
+    <p class="ny-sr">Холодные закуски: мясо-сырное ассорти 60 г, овощное ассорти 60 г, слабосолёная селёдочка под маринованным лучком 30 г, тарталетка «Суши», брускетта с форелью, брускетта «Цезарь» с курицей, рулетики с крабовыми палочками и сыром. Салаты: мясной салат с говядиной, салат «Нежность» с копчёной курицей под сухариками. Горячее на выбор: корейка на кости 300 г с картофелем по-деревенски 150 г и маринованной капустой 75 г, или пирзола с картофелем по-деревенски на лаваше. Соус по желанию гостей 100 ₽, хлеб ассорти. Стоимость на гостя 3100 ₽.</p>
+    <div class="ny-viewer-bar">
+      <a class="btn btn-gold" href="tel:+79525002305">Забронировать: 8 (952) 500-23-05</a>
+      <a class="btn btn-line" href="ny-menu-2027.jpg" download="Новогоднее меню Аэлита 2027.jpg">Скачать</a>
+    </div>
+  </div>
+</div>
+
 <footer>Кафе «Аэлита» · Карталы, ул. Братьев Кашириных, 2Б · 8 (952) 500-23-05<br><small style="font-size:11.5px;opacity:.75">Цены на сайте могут отличаться от актуальных — уточняйте по телефону.</small></footer>
 
 <script>
@@ -425,6 +523,27 @@ const secObs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){c
 document.querySelectorAll('.menu-sec').forEach(s=>secObs.observe(s));
 const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)}})},{threshold:.12});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+
+<script>
+(function(){
+  var invite=document.getElementById('ny-invite'),menu=document.getElementById('ny-menu'),last=null;
+  function sync(){document.body.classList.toggle('ny-lock',invite.classList.contains('open')||menu.classList.contains('open'))}
+  function open(el){if(!last||!el.contains(document.activeElement))last=document.activeElement;el.classList.add('open');sync();var c=el.querySelector('.ny-close');c&&c.focus({preventScroll:true});}
+  function close(el){el.classList.remove('open');sync();if(last&&last.focus&&!invite.classList.contains('open')&&!menu.classList.contains('open'))last.focus({preventScroll:true});}
+  function seen(){try{sessionStorage.setItem('nyInviteSeen','1')}catch(e){}}
+  document.querySelectorAll('[data-ny-open]').forEach(function(b){b.addEventListener('click',function(){
+    if(invite.classList.contains('open')){invite.classList.remove('open');seen();}
+    open(menu);
+  })});
+  [invite,menu].forEach(function(o){
+    o.addEventListener('click',function(e){if(e.target===o||e.target.closest('[data-ny-close]')){close(o);if(o===invite)seen();}});
+  });
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'){if(menu.classList.contains('open'))close(menu);else if(invite.classList.contains('open')){close(invite);seen();}}});
+  if(location.hash==='#ny-menu'){open(menu);return;}
+  var shown=false;try{shown=sessionStorage.getItem('nyInviteSeen')==='1'}catch(e){}
+  if(!shown)setTimeout(function(){if(!menu.classList.contains('open'))open(invite)},1500);
+})();
 </script>
 </body>
 </html>
